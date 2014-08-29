@@ -196,7 +196,7 @@ class Assetor {
 								curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
 								curl_setopt($ch,CURLOPT_POST, 1);
 								curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-								//curl_setopt($ch, CURLOPT_PROXY, '10.100.1.71:8080');
+								//curl_setopt($ch, CURLOPT_PROXY, 'xxx.xxx.xxx.xxx:8080');
 								//execute post
 								$compressed_js = curl_exec($ch);
 								echo $compressed_js;
