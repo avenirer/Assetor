@@ -48,13 +48,13 @@ If we only mention the files, they will all be loaded inside a "main group" of a
 
 But usually we want to load some files in header and some other files in footer of a file...
 
-$this->assetor->load('style_one.css','header');
-$this->assetor->load('style_two.css','header');
-$this->assetor->load('script_one.js','header');
-$this->assetor->load('script_two.js','header');
-$this->assetor->load('style_three.css','footer');
-$this->assetor->load('style_four.css','footer');
-$this->assetor->load('script_two.js','footer');
+  $this->assetor->load('style_one.css','header');
+  $this->assetor->load('style_two.css','header');
+  $this->assetor->load('script_one.js','header');
+  $this->assetor->load('script_two.js','header');
+  $this->assetor->load('style_three.css','footer');
+  $this->assetor->load('style_four.css','footer');
+  $this->assetor->load('script_two.js','footer');
 
 #### Set a version number 
 If we are working on the styles or scripts and we want to force the browser to reload the files while we work on them we can write:
