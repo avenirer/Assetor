@@ -66,7 +66,7 @@ $this->assetor->version('1.2');
 #### Merge the files or Merge and minify them
 
 From here on we have two options:
-* We can choose to merge all the files inside groups with: $this->assetor->merge().
+We can choose to merge all the files inside groups with: $this->assetor->merge().
 This will result in:
 - style_one.css, style_two.css will become one file: header.css
 - script_one.js, script_two.js will become one file: header.js
@@ -74,7 +74,7 @@ This will result in:
 - script_two.js will become one file: footer.js
 The files will have no compression applied.
 
-* We can choose to minify all the files inside groups with: $this->assetor->minify().
+We can choose to minify all the files inside groups with: $this->assetor->minify().
 This will result in:
 - style_one.css, style_two.css will become one compressed file: header.css
 - script_one.js, script_two.js will become one compressed file: header.js
