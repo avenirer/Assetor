@@ -95,13 +95,15 @@ class Assetor {
 	}
 	
 	/**
-	 * merge()
+	 * merge($forced = FALSE)
 	 * 
-	 * Merges all the files of same group in one/two files that has the name as the group name. Example: main.css + main.js
+	 * Merges all the files of same group in one/two files that has the name as the group name. Example: main.css + main.js.
+	 * 
+	 * @param bool $forced (optional) - force a rewrite if there are existing files. Defaults to false;
 	 * 
 	 * @return file(s)
 	 */
-	public function merge()
+	public function merge($forced = FALSE)
 	{
 		if(empty($this->_styles))
 		{
@@ -115,16 +117,35 @@ class Assetor {
 			}
 			foreach($group as $filetype=>$files)
 			{
-				$this->_join_files($groupname, $filetype, $files);
-			}
-			if(!empty($this->_modified_styles))
-			{
-				foreach($this->_modified_styles as $group=>$filetypes)
+				switch ($filetype) {
+					case 'css':
+						$exist_file = $this->_css_min_folder.$groupname.'.css';
+						break;
+					
+					case 'js':
+						$exist_file = $this->_js_min_folder.$groupname.'.js';
+						break;
+				}
+				if($forced || !read_file($exist_file))
 				{
-					foreach($filetypes as $filetype=>$lines)
 					{
-						$this->_write_file($filetype,$lines,$group);
+						$this->_join_files($groupname, $filetype, $files);
 					}
+					if(!empty($this->_modified_styles))
+					{
+						foreach($this->_modified_styles as $group=>$filetypes)
+						{
+							foreach($filetypes as $filetype=>$lines)
+							{
+								$this->_write_file($filetype,$lines,$group);
+							}
+						}
+					}
+				}
+				else
+				{
+					show_error('Assetor: The merged files already exist. Can\'t overwrite them unless specifically asked for. Try $this->assetor->merge(TRUE)');
+					return FALSE;					
 				}
 			}
 		}
@@ -164,18 +185,20 @@ class Assetor {
 	}
 	
 	/**
-	 * minify()
+	 * minify($forced = FALSE)
 	 * 
 	 * Minifies the files that are loaded inside the groups of assets
+	 * 
+	 * @param bool $forced (optional) - force a rewrite if there are existing files. Defaults to false;
 	 * 
 	 * @return file(s)
 	 * 
 	 */
-	public function minify()
+	public function minify($forced = FALSE)
 	{
 		if(empty($this->_modified_styles))
 		{
-			$this->merge();
+			$this->merge($forced);
 		}
 		if(!empty($this->_modified_styles))
 		{
@@ -196,7 +219,7 @@ class Assetor {
 								curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
 								curl_setopt($ch,CURLOPT_POST, 1);
 								curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-								//curl_setopt($ch, CURLOPT_PROXY, 'xxx.xxx.xxx.xxx:8080');
+								//curl_setopt($ch, CURLOPT_PROXY, '10.100.1.71:8080');
 								//execute post
 								$compressed_js = curl_exec($ch);
 								echo $compressed_js;
@@ -245,7 +268,6 @@ class Assetor {
 		{
 			show_error('Assetor: Nothing to minify.');
 		}
-		print_r($this->_modified_styles);
 	}
 
 	/**
