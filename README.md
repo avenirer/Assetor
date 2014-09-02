@@ -1,5 +1,5 @@
 #Assetor
-##Manage CSS and JS files with this Codeigniter library
+##Manage CSS, LESS and JS files with this Codeigniter library
 by [Adrian Voicu - Avenirer](http://avenir.ro)
 
 ###Installation
@@ -17,6 +17,12 @@ Set version of css/js to force browser reload assets by adding "?ver=..." at the
 
 ##### $config['css_folder'] = 'assets/css/';
 CSS folder relative to the main index.php;
+
+##### $config['less_folder'] = '';
+LESS folder relative to the main index.php. Leave blank if the folder is the same as the css folder
+
+##### $config['lessphp_folder'] = 'third_party/lessphp/';
+LESS compiler folder location relative to the application folder. To compile the LESS files, I use leafo/lessphp
 
 ##### $config['css_min_folder'] = 'assets/css/min/';
 Compressed CSS folder relative to the main index.php. Leave blank if the folder is the same as $config['css_folder']
@@ -43,16 +49,16 @@ Now we load the library: I would rather load it in a MY_Controller if possible, 
 $this->load->library('assetor');
 
 #### Load the assets
-Then we load the assets, be it css or js.
+Then we load the assets, be it css, less or js.
 If we only mention the files, they will all be loaded inside a "main group" of assets. We can load them like this: $this->assetor->load('test.css');
 
 But usually we want to load some files in header and some other files in footer of a file...
 
   $this->assetor->load('style_one.css','header');
-  $this->assetor->load('style_two.css','header');
+  $this->assetor->load('style_two.less','header');
   $this->assetor->load('script_one.js','header');
   $this->assetor->load('script_two.js','header');
-  $this->assetor->load('style_three.css','footer');
+  $this->assetor->load('style_three.less','footer');
   $this->assetor->load('style_four.css','footer');
   $this->assetor->load('script_two.js','footer');
 
@@ -68,17 +74,17 @@ $this->assetor->version('1.2');
 From here on we have two options:
 We can choose to merge all the files inside groups with: $this->assetor->merge(). If you are still working on CSS/JS you must write $this->assetor->merge(TRUE); which will force overwriting of the old merged files.
 This will result in:
-- style_one.css, style_two.css will become one file: header.css
+- style_one.css, style_two.less will become one file: header.css
 - script_one.js, script_two.js will become one file: header.js
-- style_three.css, style_four.css will become one file: footer.css
+- style_three.less, style_four.css will become one file: footer.css
 - script_two.js will become one file: footer.js
 The files will have no compression applied.
 
 We can choose to minify all the files inside groups with: $this->assetor->minify(). If you are still working on CSS/JS you must write $this->assetor->minify(TRUE); which will force overwriting of the old minified files.
 This will result in:
-- style_one.css, style_two.css will become one compressed file: header.css
+- style_one.css, style_two.less will become one compressed file: header.css
 - script_one.js, script_two.js will become one compressed file: header.js
-- style_three.css, style_four.css will become one compressed file: footer.css
+- style_three.less, style_four.css will become one compressed file: footer.css
 - script_two.js will become one compressed file: footer.js
 The files will be compressed (minified).
 
