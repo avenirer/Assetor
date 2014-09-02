@@ -323,7 +323,7 @@ class Assetor {
 			}
 			if(read_file($this->_js_min_folder.$group.'.js'))
 			{
-				$assets .='<script type="text/javascript" src="'.base_url().$this->_js_min_folder.$group.'.js?v='.$this->_version.'" />';
+				$assets .='<script type="text/javascript" src="'.base_url().$this->_js_min_folder.$group.'.js?v='.$this->_version.'"></script>';
 			}
 		}
 		else
@@ -338,7 +338,7 @@ class Assetor {
 							$assets .='<link rel="stylesheet" href="'.$this->_css_folder.$file.'?v='.$this->_version.'" />';
 							break;
 						case 'js':
-							$assets .='<script type="text/javascript" src="'.$this->_js_folder.$file.'?v='.$this->_version.'" />';
+							$assets .='<script type="text/javascript" src="'.$this->_js_folder.$file.'?v='.$this->_version.'"></script>';
 							break;
 					}
 				}
