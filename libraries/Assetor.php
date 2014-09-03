@@ -331,7 +331,14 @@ class Assetor {
 			show_error('Assetor: You added a .less file but I can\'t find the third party library that can compile the file.');
 		}
 		$this->_less = new lessc();
-		return $this->_less->compile($lines);
+		try
+		{
+			return $this->_less->compile($lines);
+		}
+		catch (exception $e)
+		{
+			show_error('Assetor: PHPLESS compiler error - ' . $e->getMessage());
+		}
 	}
 
 	/**
