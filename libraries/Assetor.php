@@ -311,15 +311,15 @@ class Assetor {
 		}
 	}
 
-/**
-* _compile_less($lines)
-*
-* Compiles .less lines of code using third party library phpless - https://github.com/leafo/lessphp
-*
-* @param string $lines - lines of code
-*
-* @return string - compiled lines.
-*/
+	/**
+	* _compile_less($lines)
+	*
+	* Compiles .less lines of code using third party library lessphp - https://github.com/leafo/lessphp
+	*
+	* @param string $lines - lines of code
+	*
+	* @return string - compiled lines.
+	*/
 	private function _compile_less($lines)
 	{
 		if(empty(trim($lines)))
@@ -337,7 +337,7 @@ class Assetor {
 		}
 		catch (exception $e)
 		{
-			show_error('Assetor: PHPLESS compiler error - ' . $e->getMessage());
+			show_error('Assetor: LESSPHP compiler error - ' . $e->getMessage());
 		}
 	}
 
