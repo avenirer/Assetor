@@ -76,7 +76,7 @@ class Assetor {
 				$loc = $this->_js_folder;
 				break;
 		}
-		if(!read_file($loc.$filename))
+		if(!file_get_contents($loc.$filename))
 		{
 			show_error('Assetor: The file <strong>'.$filename.'</strong> doesn\'t seem to exist in '.$loc.' or is empty. Please verify its presence and check the config file of assetor.',500);
 		}
@@ -133,7 +133,7 @@ class Assetor {
 						$exist_file = $this->_js_min_folder.$groupname.'.js';
 						break;
 				}
-				if($forced || !read_file($exist_file))
+				if($forced || !file_get_contents($exist_file))
 				{
 					{
 						$this->_join_files($groupname, $file['ext'], $file['file']);
@@ -298,10 +298,10 @@ class Assetor {
 			switch ($filetype)
 			{
 				case 'less':
-					$lines .= $this->_compile_less(read_file($loc.$file));
+					$lines .= $this->_compile_less(file_get_contents($loc.$file));
 					break;
 				default:
-					$lines .= read_file($loc.$file);
+					$lines .= file_get_contents($loc.$file);
 					break;
 			}
 			if(!empty(trim($lines)))
@@ -353,13 +353,13 @@ class Assetor {
 	public function generate($group = 'main')
 	{
 		$assets = '';
-		if(read_file($this->_css_min_folder.$group.'.css') || read_file($this->_js_min_folder.$group.'.js'))
+		if(file_get_contents($this->_css_min_folder.$group.'.css') || file_get_contents($this->_js_min_folder.$group.'.js'))
 		{
-			if(read_file($this->_css_min_folder.$group.'.css'))
+			if(file_get_contents($this->_css_min_folder.$group.'.css'))
 			{
 				$assets .='<link rel="stylesheet" href="'.base_url().$this->_css_min_folder.$group.'.css?v='.$this->_version.'" />';
 			}
-			if(read_file($this->_js_min_folder.$group.'.js'))
+			if(file_get_contents($this->_js_min_folder.$group.'.js'))
 			{
 				$assets .='<script type="text/javascript" src="'.base_url().$this->_js_min_folder.$group.'.js?v='.$this->_version.'"></script>';
 			}
