@@ -353,13 +353,13 @@ class Assetor {
 	public function generate($group = 'main')
 	{
 		$assets = '';
-		if(file_get_contents($this->_css_min_folder.$group.'.css') || file_get_contents($this->_js_min_folder.$group.'.js'))
+		if(is_file($this->_css_min_folder.$group.'.css') || is_file($this->_js_min_folder.$group.'.js'))
 		{
-			if(file_get_contents($this->_css_min_folder.$group.'.css'))
+			if(is_file($this->_css_min_folder.$group.'.css'))
 			{
 				$assets .='<link rel="stylesheet" href="'.base_url().$this->_css_min_folder.$group.'.css?v='.$this->_version.'" />';
 			}
-			if(file_get_contents($this->_js_min_folder.$group.'.js'))
+			if(is_file($this->_js_min_folder.$group.'.js'))
 			{
 				$assets .='<script type="text/javascript" src="'.base_url().$this->_js_min_folder.$group.'.js?v='.$this->_version.'"></script>';
 			}
